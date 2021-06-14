@@ -5,9 +5,9 @@ import json
 class SpotifyHelpmate():
     spotify =  SpotifyAPI(clientId, clientSecret)
     print("breathe")
+    tracks = []
     infos = spotify.search({"track": "Free Spirit"})["tracks"]["items"]
-    for info in infos:
-        
+    for info in infos:  
         trackName = info["name"]
         trackUrl = info["external_urls"]['spotify']
         trackId = info["id"]
@@ -16,10 +16,18 @@ class SpotifyHelpmate():
         albumId = album['id']
         albumCover = album['images'][0]['url']
         albumUrl = album['external_urls']['spotify']
-        artist = info["artists"]
-        artistName = artist[0]['name']
-        artistId = artist[0]['id']
-        artistUrl = artist[0]['external_urls']['spotify']
+        artistsInfo = info["artists"]
+        artists = []
+        for artistInfo in artistsInfo:
+            artistName = artistInfo['name']
+            artistId = artistInfo['id']
+            artistUrl = artistInfo['external_urls']['spotify']
+            artist = {
+                'artistname': artistName,
+                'artistid': artistId,
+                'artisturl': artistUrl}
+            artists.append(artist)
+        # artist.clear()
         track = {
                 'trackname': trackName,
                 'trackid': trackId,
@@ -28,8 +36,10 @@ class SpotifyHelpmate():
                 'albumid': albumId,
                 'albumurl': albumUrl,
                 'albumcover': albumCover,
-                'artistname': artistName,
-                'artistid': artistId,
-                'artisturl': artistUrl}
-    # print(spotify.search({"track": "Free Spirit"}))
-        print(track)
+                'artist': artists}
+        tracks.append(track)
+        # print(track)
+        # print("\n\n #### \\n\n")
+        # track.clear()
+
+    print(tracks)
