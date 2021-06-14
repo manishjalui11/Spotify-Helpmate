@@ -2,7 +2,7 @@ from spotifyHelpmate import SpotifyHelpmate
 
 
 def main():
-    sh= SpotifyHelpmate()
+    SpotifyHelpmate()
 
 if __name__=='__main__':
     main()
